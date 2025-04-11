@@ -23,6 +23,9 @@ static uint32_t temp_fix_backup = 0;
 static uint32_t temp_counter_backup = 0;
 static bool faac_prog_mode = false;
 static bool allow_zero_seed = false;
+// alemarostica: FAAC SLH RX mod begin
+static bool already_programmed = false;
+// FAAC SLH RX mod end
 
 void faac_slh_reset_prog_mode(void) {
     temp_fix_backup = 0;
@@ -460,6 +463,9 @@ void* subghz_protocol_decoder_faac_slh_alloc(SubGhzEnvironment* environment) {
 void subghz_protocol_decoder_faac_slh_free(void* context) {
     furi_assert(context);
     SubGhzProtocolDecoderFaacSLH* instance = context;
+    // alemarostica: FAAC SLH RX mod begin
+    already_programmed = false;
+    // FAAC SLH RX mod end
     free(instance);
 }
 
@@ -589,7 +595,13 @@ static void subghz_protocol_faac_slh_check_remote_controller(
         data_prg[3] ^= data_prg[1];
         data_prg[4] ^= data_prg[1];
         data_prg[5] ^= data_prg[1];
-        instance->seed = data_prg[5] << 24 | data_prg[4] << 16 | data_prg[3] << 8 | data_prg[2];
+        // alemarostica: FAAC SLH RX mod begin
+        if(!already_programmed) {
+            instance->seed = data_prg[5] << 24 | data_prg[4] << 16 | data_prg[3] << 8 |
+                             data_prg[2];
+            already_programmed = true;
+        }
+        // FAAC SLH RX mod end
         uint32_t dec_prg_1 = data_prg[7] << 24 | data_prg[6] << 16 | data_prg[5] << 8 |
                              data_prg[4];
         uint32_t dec_prg_2 = data_prg[3] << 24 | data_prg[2] << 16 | data_prg[1] << 8 |
