@@ -1,5 +1,5 @@
 ## Flipper Zero Unleashed Firmware mod for FAAC SLH receiver emulator
-This firmware is a fork of the [DarkFlippers/unleashed-firmware](https://github.com/DarkFlippers/unleashed-firmware) slightly modded to accomodate for the FAAC SLH receiver emulator I developed. I used Unleashed specifically due to its stability and the fact it implemented the FAAC SLH protocol more deeply than OFW. The only edited file is ``lib/subghz/protocols/faac_slh.c``.
+This firmware is a fork of the [DarkFlippers/unleashed-firmware](https://github.com/DarkFlippers/unleashed-firmware) slightly modded to accomodate for the [FAAC SLH receiver emulator](https://github.com/alemarostica/faac-slh-433-rx-emulator) I developed. I used Unleashed specifically due to its stability and the fact it implemented the FAAC SLH protocol more deeply than OFW. The only edited file is ``lib/subghz/protocols/faac_slh.c``.
 I want to thank the entirety of the team behind this firmware and specifically [xMasterX](https://github.com/xMasterX) for quickly helping me solve some problems I encountered while working on the emulator.
 
 <h3 align="center">
